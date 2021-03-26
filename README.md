@@ -9,12 +9,12 @@
 
 <br/>
 
-Dê seu ✔️ para a sugestão
-- [ ] Retry
+Dê seu ✔️ para as sugestões que mais gostar
+- [x] Retry
 - [ ] TrybePlus
 - [ ] Cloting
 - [ ] Gadgest & Chargers
-- [ ] Toiletries
+- [x] Toiletries
 - [ ] Entertainment
 
  - Nota: Lembre-se leia o **README.md**
