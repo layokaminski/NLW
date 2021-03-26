@@ -16,3 +16,5 @@ Dê seu ✔️ para a sugestão
 - [ ] Gadgest & Chargers
 - [ ] Toiletries
 - [ ] Entertainment
+
+ - Nota: Lembre-se leia o **README.md**
