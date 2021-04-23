@@ -12,6 +12,8 @@ export default function Player() {
     isPlaying,
     togglePlay,
     setPlayingState,
+    playNext,
+    playPrevious,
   } = useContext(PlayerContext);
 
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -80,7 +82,7 @@ export default function Player() {
           <button type="button" disabled={ !episode }>
             <img src="/shuffle.svg" alt="Embaralhar"/>
           </button>
-          <button type="button" disabled={ !episode }>
+          <button type="button" onClick={ playPrevious } disabled={ !episode }>
             <img src="/play-previous.svg" alt="Tocar anterior"/>
           </button>
           <button
@@ -93,7 +95,7 @@ export default function Player() {
               ? <img src="/pause.svg" alt="Pausar"/>
               : <img src="/play.svg" alt="Tocar"/> }
           </button>
-          <button type="button" disabled={ !episode }>
+          <button type="button" onClick={ playNext } disabled={ !episode }>
             <img src="/play-next.svg" alt="Tocar próxima"/>
           </button>
           <button type="button" disabled={ !episode }>
