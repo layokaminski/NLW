@@ -6,7 +6,13 @@ import { PlayerContext } from '../../contexts/PlayerContext';
 import styles from './styles.module.scss';
 
 export default function Player() {
-  const { episodeList, currentEpisodeIndex, isPlaying, togglePlay } = useContext(PlayerContext);
+  const {
+    episodeList,
+    currentEpisodeIndex,
+    isPlaying,
+    togglePlay,
+    setPlayingState,
+  } = useContext(PlayerContext);
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -66,6 +72,8 @@ export default function Player() {
             src={ episode.url }
             ref={ audioRef }
             autoPlay
+            onPlay={ () => setPlayingState(true) }
+            onPause={ () => setPlayingState(false) }
           />
         ) }
         <div className={ styles.buttons }>

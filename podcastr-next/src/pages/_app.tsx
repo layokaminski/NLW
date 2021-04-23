@@ -20,12 +20,17 @@ function MyApp({ Component, pageProps }) {
     setIsPlaying(!isPlaying);
   }
 
+  const setPlayingState = (state: boolean) => {
+    setIsPlaying(state);
+  }
+
   const context = {
     episodeList,
     currentEpisodeIndex,
     isPlaying,
     play,
     togglePlay,
+    setPlayingState,
   }
 
   return (
