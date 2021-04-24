@@ -11,13 +11,15 @@ export default function Player() {
     currentEpisodeIndex,
     isPlaying,
     isLooping,
+    isShuffling,
+    hasNext,
+    hasPrevious,
     togglePlay,
-    toggleLoop, 
+    toggleLoop,
+    toggleShuffle,
     setPlayingState,
     playNext,
     playPrevious,
-    hasNext,
-    hasPrevious,
   } = usePlayer();
 
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -83,7 +85,12 @@ export default function Player() {
           />
         ) }
         <div className={ styles.buttons }>
-          <button type="button" disabled={ !episode }>
+          <button
+            type="button"
+            className={ isShuffling ? styles.isActive : '' }
+            onClick={ toggleShuffle }
+            disabled={ !episode || episodeList.length === 1 }
+          >
             <img src="/shuffle.svg" alt="Embaralhar"/>
           </button>
           <button
@@ -114,7 +121,8 @@ export default function Player() {
             type="button"
             className={ isLooping ? styles.isActive : '' }
             onClick={ toggleLoop }
-            disabled={ !episode }>
+            disabled={ !episode }
+          >
             <img src="/repeat.svg" alt="Repetir"/>
           </button>
         </div>

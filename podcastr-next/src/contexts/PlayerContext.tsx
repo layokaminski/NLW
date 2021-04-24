@@ -13,10 +13,12 @@ type PlayerContextData = {
   currentEpisodeIndex: number,
   isPlaying: boolean,
   isLooping: boolean,
+  isShuffling: boolean,
   play: (episode: Episode) => void,
   playList: (list: Episode[], index: number) => void,
   togglePlay: () => void,
   toggleLoop: () => void,
+  toggleShuffle: () => void,
   setPlayingState: (state: boolean) => void,
   playNext: () => void,
   playPrevious: () => void,
@@ -36,6 +38,7 @@ export const PlayerContextProvider = ({ children }: PlayerContextProviderProps) 
   const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLooping, setIsLooping] = useState(false);
+  const [isShuffling, setIsShuffling] = useState(false);
   
   const play = (episode) => {
     setEpisodeList([episode]);
@@ -56,6 +59,10 @@ export const PlayerContextProvider = ({ children }: PlayerContextProviderProps) 
   const toggleLoop = () => {
     setIsLooping(!isLooping);
   }
+
+  const toggleShuffle = () => {
+    setIsShuffling(!isShuffling);
+  }
   
   const setPlayingState = (state: boolean) => {
     setIsPlaying(state);
@@ -65,9 +72,10 @@ export const PlayerContextProvider = ({ children }: PlayerContextProviderProps) 
   const hasNext = (currentEpisodeIndex + 1) < episodeList.length;
 
   const playNext = () => {
-    const nextEpisodeIndex = currentEpisodeIndex + 1;
-    
-    if (hasNext) {
+    if (isShuffling) {
+      const nextRandomEpisodeIndex = Math.floor(Math.random() * episodeList.length);
+      setCurrentEpisodeIndex(nextRandomEpisodeIndex);
+    } else if (hasNext) {
       setCurrentEpisodeIndex(currentEpisodeIndex + 1);
     }
   }
@@ -82,16 +90,18 @@ export const PlayerContextProvider = ({ children }: PlayerContextProviderProps) 
     episodeList,
     currentEpisodeIndex,
     isPlaying,
+    isLooping,
+    isShuffling,
+    hasNext,
+    hasPrevious,
     play,
     playList,
     togglePlay,
-    setPlayingState,
+    toggleLoop,
+    toggleShuffle,
     playNext,
     playPrevious,
-    hasNext,
-    hasPrevious,
-    toggleLoop,
-    isLooping,
+    setPlayingState,
   }
 
   return (
