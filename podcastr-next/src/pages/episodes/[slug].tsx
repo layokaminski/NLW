@@ -82,6 +82,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       locale: ptBR,
     }),
     durationAsString: convertDurationToTimeString(Number(data.file.duration)),
+    duration: data.file.duration,
     url: data.file.url,
   }
 

@@ -1,5 +1,6 @@
+import { convertDurationToTimeString } from '../../utils/convertDurationToTimeString';
 import Image from 'next/image';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { usePlayer } from '../../contexts/PlayerContext';
@@ -22,6 +23,8 @@ export default function Player() {
     playPrevious,
   } = usePlayer();
 
+  const [progress, setProgress] = useState(0);
+
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
@@ -33,6 +36,14 @@ export default function Player() {
       audioRef.current.pause();
     }
   }, [isPlaying]);
+
+  const setupProgressListener = () => {
+    audioRef.current.currentTime = 0;
+
+    audioRef.current.addEventListener('timeupdate', () => {
+      setProgress(Math.floor(audioRef.current.currentTime));
+    });
+  }
 
   const episode = episodeList[currentEpisodeIndex];
 
@@ -58,12 +69,14 @@ export default function Player() {
           <strong>Selecione um podcast para ouvir</strong>
         </div>
       ) }
-      <footer className={ !episode && styles.empty }>
+      <footer className={ !episode ? styles.empty : undefined }>
         <div className={ styles.progress }>
-          <span>00:00</span>
+          <span>{ convertDurationToTimeString(progress) }</span>
           <div className={ styles.slider } >
             { episode ? (
               <Slider
+                max={ episode.duration }
+                value={ progress }
                 trackStyle={{ backgroundColor: '#04d361' }}
                 railStyle={{ backgroundColor: '#9f75ff' }}
                 handleStyle={{ borderColor: '#04d361', borderWidth: 4 }}
@@ -72,7 +85,7 @@ export default function Player() {
               <div className={ styles.emptySlider } />
             ) }
           </div>
-          <span>00:00</span>
+          <span>{ convertDurationToTimeString(episode?.duration ?? 0) }</span>
         </div>
         { episode && (
           <audio
@@ -82,12 +95,13 @@ export default function Player() {
             autoPlay
             onPlay={ () => setPlayingState(true) }
             onPause={ () => setPlayingState(false) }
+            onLoadedMetadata={ setupProgressListener }
           />
         ) }
         <div className={ styles.buttons }>
           <button
             type="button"
-            className={ isShuffling ? styles.isActive : '' }
+            className={ isShuffling ? styles.isActive : undefined }
             onClick={ toggleShuffle }
             disabled={ !episode || episodeList.length === 1 }
           >
@@ -119,7 +133,7 @@ export default function Player() {
           </button>
           <button
             type="button"
-            className={ isLooping ? styles.isActive : '' }
+            className={ isLooping ? styles.isActive : undefined }
             onClick={ toggleLoop }
             disabled={ !episode }
           >
