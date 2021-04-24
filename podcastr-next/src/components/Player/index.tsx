@@ -21,6 +21,7 @@ export default function Player() {
     setPlayingState,
     playNext,
     playPrevious,
+    clearPlayerState,
   } = usePlayer();
 
   const [progress, setProgress] = useState(0);
@@ -48,6 +49,14 @@ export default function Player() {
   const handleSeek = (amount: number) => {
     audioRef.current.currentTime = amount;
     setProgress(amount);
+  }
+
+  const handleEpisodeEnded = () => {
+    if (hasNext) {
+      playNext();
+    } else {
+      clearPlayerState();
+    }
   }
 
   const episode = episodeList[currentEpisodeIndex];
@@ -102,6 +111,7 @@ export default function Player() {
             onPlay={ () => setPlayingState(true) }
             onPause={ () => setPlayingState(false) }
             onLoadedMetadata={ setupProgressListener }
+            onEnded={ handleEpisodeEnded }
           />
         ) }
         <div className={ styles.buttons }>
