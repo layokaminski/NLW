@@ -25,7 +25,7 @@ type EpisodeProps = {
 };
 
 const Episode = ({ episode }: EpisodeProps) => {
-  const { } = usePlayer();
+  const { play } = usePlayer();
 
   return (
     <div className={ styles.episode }>
@@ -41,7 +41,7 @@ const Episode = ({ episode }: EpisodeProps) => {
           objectFit="cover"
           src={ episode.thumbnail }
         />
-        <button type="button">
+        <button type="button" onClick={ () => play(episode) }>
           <img src="/play.svg" alt="Tocar episódio"/>
         </button>
       </div>
