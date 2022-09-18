@@ -23,7 +23,7 @@ interface Props {
 
 export function DuoCard({ data, onConnect }: Props) {
   return (
-    <View style={styles.contaier}>
+    <View style={styles.container}>
       <DuoInfo 
         label='Nome'
         value={ data.name }

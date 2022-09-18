@@ -10,7 +10,7 @@ interface Props {
 
 export function DuoInfo({ label, value, colorValue = THEME.COLORS.TEXT }: Props) {
   return (
-    <View style={styles.contaier}>
+    <View style={styles.container}>
       <Text style={styles.label}>
         { label }
       </Text>

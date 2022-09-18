@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { THEME } from '../../theme';
 
 export const styles = StyleSheet.create({
-  contaier: {
+  container: {
     width: 200,
     backgroundColor: THEME.COLORS.SHAPE,
     borderRadius: 8,

@@ -30,7 +30,7 @@ export function Home() {
 
   return (
     <Background>
-      <SafeAreaView style={styles.contaier}>
+      <SafeAreaView style={styles.container}>
         <Image 
           source={logoImg}
           style={styles.logo}

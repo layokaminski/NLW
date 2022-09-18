@@ -19,7 +19,7 @@ interface Props extends TouchableOpacityProps {
 
 export function GameCard({ data, ...rest }: Props) {
   return (
-    <TouchableOpacity style={styles.contaier} {...rest}>
+    <TouchableOpacity style={styles.container} {...rest}>
       <ImageBackground
         style={styles.cover}
         source={{ uri: data.bannerUrl }}
